@@ -21,6 +21,22 @@ const indexPage = async (req, res) => {
 	res.render("tickets/index", { ticketList });
 };
 
+const showPage = async (req, res) => {
+	const { id } = req.params;
+	const options = {
+		url: `https://${domain}.zendesk.com/api/v2/tickets/${id}.json`,
+		method: "GET",
+		auth: {
+			username: `${user}`,
+			password: `${password}`,
+		},
+	};
+
+	const resp = await axios(options);
+	const ticket = resp.data.ticket;
+	res.render("tickets/show", { ticket });
+};
+
 //=================================================================================================
 
-module.exports = { indexPage };
+module.exports = { indexPage, showPage };

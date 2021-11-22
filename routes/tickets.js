@@ -9,6 +9,8 @@ const Control = require("../controllers/tickets_Control");
 
 router.get("/", catchAsync(Control.indexPage));
 
+router.get("/:id", catchAsync(Control.showPage));
+
 //=================================================================================================
 
 module.exports = router;
