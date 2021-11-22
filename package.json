@@ -1,0 +1,26 @@
+{
+  "name": "zendeskticketviewer",
+  "version": "1.0.0",
+  "description": "Zendesk coding challenge for Engineering Internship 2022",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuyBritish/ZendeskTicketViewer.git"
+  },
+  "keywords": [
+    "zendesk",
+    "ticket",
+    "viewer",
+    "coding",
+    "challenge"
+  ],
+  "author": "Khai Bui",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GuyBritish/ZendeskTicketViewer/issues"
+  },
+  "homepage": "https://github.com/GuyBritish/ZendeskTicketViewer#readme"
+}
