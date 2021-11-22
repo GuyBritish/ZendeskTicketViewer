@@ -22,5 +22,10 @@
   "bugs": {
     "url": "https://github.com/GuyBritish/ZendeskTicketViewer/issues"
   },
-  "homepage": "https://github.com/GuyBritish/ZendeskTicketViewer#readme"
+  "homepage": "https://github.com/GuyBritish/ZendeskTicketViewer#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "ejs-mate": "^3.0.0",
+    "express": "^4.17.1"
+  }
 }
