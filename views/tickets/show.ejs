@@ -1,3 +1,19 @@
 <% layout("layouts/boilerplate") %>
 
 <h1> <%=ticket.subject%> </h1>
+
+<br>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title" style="white-space: pre-line;"> <%=ticket.description.trim()%></h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"> Submitted by: <%=ticket.requester_id%> </li>
+        <li class="list-group-item"> Last updated: <%=ticket.updated_at%> </li>
+        <li class="list-group-item"> Tags: <%=ticket.tags%></li>
+    </ul>
+    <div class="card-body">
+        <a href="/tickets" class="btn btn-info card-link"> Back </a>
+    </div>
+</div>
