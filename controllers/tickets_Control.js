@@ -17,7 +17,7 @@ const indexPage = async (req, res) => {
 	};
 
 	const resp = await axios(options);
-	const ticketList = resp.tickets;
+	const ticketList = resp.data.tickets;
 	res.render("tickets/index", { ticketList });
 };
 
