@@ -1,3 +1,18 @@
 <% layout("layouts/boilerplate") %>
 
 <h1> All tickets </h1>
+
+<% for (let ticket of ticketList) { %>
+    <div class="card mb-3">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"> <%=ticket.subject%> </h5>
+                    <p class="card-text text-muted"> <%=ticket.type%> </p>
+                    <p class="card-text"> <%=ticket.description%> </p>
+                    <a href="/tickets/<%=ticket._id%>" class="btn btn-primary"> View details </a>
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
