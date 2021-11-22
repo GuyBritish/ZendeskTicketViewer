@@ -1,3 +1,8 @@
 .navbar a {
 	font-size: 1.5em;
 }
+
+p {
+	word-break: break-all;
+	white-space: pre-wrap;
+}
