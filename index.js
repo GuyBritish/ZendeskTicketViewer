@@ -20,9 +20,13 @@ app.engine("ejs", ejsMate);
 
 //=================================================================================================
 
+const ticketsRoutes = require("./routes/tickets");
+
 app.get("/", (req, res) => {
 	res.render("home");
 });
+
+app.use("/tickets", ticketsRoutes);
 
 app.use((err, req, res, next) => {
 	const { statusCode = 500, message = "Something went wrong!" } = err;
