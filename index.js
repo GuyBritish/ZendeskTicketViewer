@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express");
 const path = require("path");
 const ejsMate = require("ejs-mate");
+const ExpressError = require("./utils/ExpressError");
 
 //=================================================================================================
 
@@ -28,14 +29,20 @@ app.get("/", (req, res) => {
 
 app.use("/tickets", ticketsRoutes);
 
+app.all("*", (req, res, next) => {
+	//res.status(404).send("Error 404 Not Found");
+	next(new ExpressError(404, "Page Not Found"));
+});
+
 app.use((err, req, res, next) => {
-	const { statusCode = 500, message = "Something went wrong!" } = err;
+	const { statusCode = 500, message = "Something is wrong!" } = err;
 	if (!err.statusCode) {
 		err.statusCode = 500;
 	}
 	if (!err.message) {
-		err.message = "Something went wrong!";
+		err.message = "Something is wrong!";
 	}
+	res.status(statusCode).render("error", { err });
 });
 
 //=================================================================================================
