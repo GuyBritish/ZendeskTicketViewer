@@ -4,7 +4,7 @@
     <div class="col-md-8 offset-2">
         <h1> All tickets </h1>
 
-        <% for (let ticket of ticketList) { %>
+        <% for (let ticket of tickets) { %>
             <div class="card mb-3">
                 <div class="card-body hstack gap-2">
                     <div class="d-inline">    
@@ -13,10 +13,25 @@
                         <p class="card-text text-muted"> <%=ticket.tags%> </p>
                     </div>
                     <div class="ms-auto">
-                        <a href="/tickets/<%=ticket.id%>" class="btn btn-primary"> View details </a>
+                        <a href="/tickets/details/<%=ticket.id%>" class="btn btn-primary"> View details </a>
                     </div>
                 </div>
             </div>
         <% } %>  
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/tickets/<%=prevPage%>">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="/tickets/<%=prevPage%>"> <%=prevPage%> </a></li>
+                <li class="page-item active"><a class="page-link" href="#"> <%=currPage%> </a></li>
+                <li class="page-item"><a class="page-link" href="/tickets/<%=nextPage%>"> <%=nextPage%> </a></li>
+                <li class="page-item"> 
+                    <a class="page-link" href="/tickets/<%=nextPage%>">Next</a>
+                </li>
+            </ul>
+        </nav>
+
     </div>
 </div>
