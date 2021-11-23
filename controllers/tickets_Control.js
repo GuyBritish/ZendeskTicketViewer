@@ -65,7 +65,7 @@ const indexPage = async (req, res) => {
 	);
 	const { prevPage, nextPage } = getAdjPages(currPage, maxPage);
 
-	res.render("tickets/index", { tickets, prevPage, nextPage });
+	res.render("tickets/index", { tickets, currPage, prevPage, nextPage });
 };
 
 const showPage = async (req, res) => {
