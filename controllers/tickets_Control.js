@@ -21,6 +21,29 @@ const getAdjPages = (currPage, maxPage) => {
 	return { prevPage, nextPage };
 };
 
+const getAllTickets = async () => {
+	let page = 1;
+	let options = {
+		url: `https://${domain}.zendesk.com/api/v2/tickets.json`,
+		method: "GET",
+		auth: {
+			username: `${user}`,
+			password: `${password}`,
+		},
+		params: {
+			page: `${page}`,
+		},
+	};
+	let resp = await axios(options);
+	let ticketList = resp.data.tickets;
+	while (resp.data.next_page != null) {
+		options.params.page = ++page;
+		resp = await axios(options);
+		ticketList = ticketList.concat(resp.data.tickets);
+	}
+	return ticketList;
+};
+
 //=================================================================================================
 
 const indexPage = async (req, res) => {
@@ -31,17 +54,7 @@ const indexPage = async (req, res) => {
 	if (!reg.test(page)) throw new ExpressError(404, "Page Not Found");
 	const currPage = parseInt(page);
 
-	let options = {
-		url: `https://${domain}.zendesk.com/api/v2/tickets.json`,
-		method: "GET",
-		auth: {
-			username: `${user}`,
-			password: `${password}`,
-		},
-	};
-
-	const resp = await axios(options);
-	const ticketList = resp.data.tickets;
+	const ticketList = await getAllTickets();
 
 	const maxPage = Math.ceil(ticketList.length / perPage);
 	if (maxPage < currPage && currPage !== 1) throw new ExpressError(404, "Page Not Found");
