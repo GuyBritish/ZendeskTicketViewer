@@ -7,9 +7,9 @@ const Control = require("../controllers/tickets_Control");
 
 //=================================================================================================
 
-router.get("/", catchAsync(Control.indexPage));
+router.get("/:page", catchAsync(Control.indexPage));
 
-router.get("/:id", catchAsync(Control.showPage));
+router.get("/details/:id", catchAsync(Control.showPage));
 
 //=================================================================================================
 
