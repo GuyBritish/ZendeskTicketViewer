@@ -7,18 +7,10 @@ const password = process.env.PASS;
 
 //=================================================================================================
 
-const getAdjPages = (currPage, maxPage) => {
-	let nextPage, prevPage;
-
-	nextPage = prevPage = 0;
-
-	if (maxPage > currPage) {
-		nextPage = currPage + 1;
-	}
-	if (currPage > 1) {
-		prevPage = currPage - 1;
-	}
-	return { prevPage, nextPage };
+const getPageRange = (currPage, pages) => {
+	let maxPage = Math.max(currPage, pages);
+	let minPage = Math.min(currPage, 1);
+	return { minPage, maxPage };
 };
 
 const getAllTickets = async () => {
@@ -56,16 +48,16 @@ const indexPage = async (req, res) => {
 
 	const ticketList = await getAllTickets();
 
-	const maxPage = Math.ceil(ticketList.length / perPage);
-	if (maxPage < currPage && currPage !== 1) throw new ExpressError(404, "Page Not Found");
+	const pages = Math.ceil(ticketList.length / perPage);
+	if (pages < currPage && currPage !== 1) throw new ExpressError(404, "Page Not Found");
 
 	const tickets = ticketList.slice(
 		perPage * (currPage - 1),
 		Math.min(ticketList.length, perPage * currPage)
 	);
-	const { prevPage, nextPage } = getAdjPages(currPage, maxPage);
+	const { minPage, maxPage } = getPageRange(currPage, pages);
 
-	res.render("tickets/index", { tickets, currPage, prevPage, nextPage });
+	res.render("tickets/index", { tickets, currPage, minPage, maxPage });
 };
 
 const showPage = async (req, res) => {

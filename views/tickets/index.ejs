@@ -21,15 +21,11 @@
 
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="/tickets/<%=prevPage%>">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="/tickets/<%=prevPage%>"> <%=prevPage%> </a></li>
-                <li class="page-item active"><a class="page-link" href="#"> <%=currPage%> </a></li>
-                <li class="page-item"><a class="page-link" href="/tickets/<%=nextPage%>"> <%=nextPage%> </a></li>
-                <li class="page-item"> 
-                    <a class="page-link" href="/tickets/<%=nextPage%>">Next</a>
-                </li>
+
+                <% for (let pageNum = minPage; pageNum <= maxPage; ++pageNum) { %>
+                    <li class="page-item <%= pageNum === currPage ? "active" : "" %>"><a class="page-link" href="/tickets/<%=pageNum%>"> <%=pageNum%> </a></li>
+                <% } %>
+
             </ul>
         </nav>
 
