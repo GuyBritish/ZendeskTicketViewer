@@ -7,9 +7,10 @@ const password = process.env.PASS;
 
 //=================================================================================================
 
-const getPageRange = (currPage, pages) => {
-	let maxPage = Math.max(currPage, pages);
-	let minPage = Math.min(currPage, 1);
+const getPageRange = (currPage, pages, range) => {
+	range = Math.abs(range);
+	let maxPage = Math.min(currPage + range, Math.max(currPage, pages));
+	let minPage = Math.max(currPage - range, Math.min(currPage, 1));
 	return { minPage, maxPage };
 };
 
@@ -55,7 +56,7 @@ const indexPage = async (req, res) => {
 		perPage * (currPage - 1),
 		Math.min(ticketList.length, perPage * currPage)
 	);
-	const { minPage, maxPage } = getPageRange(currPage, pages);
+	const { minPage, maxPage } = getPageRange(currPage, pages, 7);
 
 	res.render("tickets/index", { tickets, currPage, minPage, maxPage });
 };
