@@ -1,4 +1,3 @@
-const axios = require("axios");
 const ExpressError = require("../utils/ExpressError");
 
 const domain = process.env.DOMAIN;
