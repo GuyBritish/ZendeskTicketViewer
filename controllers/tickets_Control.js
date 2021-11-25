@@ -7,6 +7,12 @@ const password = process.env.PASS;
 
 //=================================================================================================
 
+const getPageNumber = (page) => {
+	const reg = new RegExp("^[0-9]+$");
+	if (!reg.test(page)) throw new Error("Invalid page string!");
+	return parseInt(page);
+};
+
 const getPageRange = (currPage, pages, range) => {
 	range = Math.abs(range);
 	let maxPage = Math.min(currPage + range, Math.max(currPage, pages));
@@ -14,30 +20,35 @@ const getPageRange = (currPage, pages, range) => {
 	return { minPage, maxPage };
 };
 
-//=================================================================================================
-
-const { getAllTickets, getIndividualTicket } = require("./tickets_Request");
-
-const indexPage = async (req, res) => {
-	const perPage = 25;
-
-	let { page } = req.params;
-	const reg = new RegExp("^[0-9]+$");
-	if (!reg.test(page)) throw new ExpressError(404, "Page Not Found");
-	const currPage = parseInt(page);
-
-	const ticketList = await getAllTickets(domain, user, password);
-
+const getTicketsForPage = (ticketList, currPage, perPage) => {
 	const pages = Math.ceil(ticketList.length / perPage);
-	if (pages < currPage && currPage !== 1) throw new ExpressError(404, "Page Not Found");
+
+	if (pages < currPage && currPage !== 1) throw new Error("Invalid page number!");
 
 	const tickets = ticketList.slice(
 		perPage * (currPage - 1),
 		Math.min(ticketList.length, perPage * currPage)
 	);
-	const { minPage, maxPage } = getPageRange(currPage, pages, 7);
+	return { tickets, pages, currPage };
+};
 
-	res.render("tickets/index", { tickets, currPage, minPage, maxPage });
+//=================================================================================================
+
+const { getAllTickets, getIndividualTicket } = require("./tickets_Request");
+
+const indexPage = async (req, res) => {
+	const { page } = req.params;
+	const ticketList = await getAllTickets(domain, user, password);
+
+	try {
+		const currPage = getPageNumber(page);
+		const { tickets, pages } = getTicketsForPage(ticketList, page, 25);
+		const { minPage, maxPage } = getPageRange(currPage, pages, 7);
+		res.render("tickets/index", { tickets, currPage, minPage, maxPage });
+	} catch (err) {
+		console.log(err.message);
+		throw new ExpressError(404, "Page Not Found");
+	}
 };
 
 const showPage = async (req, res) => {
