@@ -7,19 +7,17 @@ const password = process.env.PASS;
 //=================================================================================================
 
 const { getAllTickets, getIndividualTicket } = require("./tickets_Request");
-const { getPageNumber, getPageRange, getTicketsForPage } = require("./tickets_Helper");
+const { getPageNumber, getPageRange } = require("./tickets_Helper");
 
 const indexPage = async (req, res) => {
 	const { page } = req.params;
-	const ticketList = await getAllTickets(domain, user, password);
 
 	try {
 		const currPage = getPageNumber(page);
-		const { tickets, pages } = getTicketsForPage(ticketList, page, 25);
-		const { minPage, maxPage } = getPageRange(currPage, pages, 7);
+		const { tickets, ticketCount } = await getAllTickets(domain, user, password, currPage);
+		const { minPage, maxPage } = getPageRange(currPage, ticketCount, 25, 7);
 		res.render("tickets/index", { tickets, currPage, minPage, maxPage });
 	} catch (err) {
-		console.log(err.message);
 		throw new ExpressError(404, "Page Not Found");
 	}
 };
