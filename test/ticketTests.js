@@ -52,7 +52,6 @@ describe("Ticket Requests", () => {
 					tickets.length.should.equal(Math.min(25, ticketCount));
 				}
 			} catch (err) {
-				console.log(err);
 				assert.fail("Error thrown for valid request");
 			}
 		});
@@ -60,10 +59,56 @@ describe("Ticket Requests", () => {
 
 	// Test the getIndividualTicket() method if it functions correctly and throws appropriate errors.
 	describe("GET individual tickets", () => {
-		it("Incorrect request subdomain", () => {});
-		it("Incorrect user email", () => {});
-		it("Incorrect user password", () => {});
-		it("Valid request for one ticket", () => {});
+		// Reset mock environment variables
+		let domain, user, password;
+		beforeEach(() => {
+			domain = process.env.DOMAIN;
+			user = process.env.EMAIL;
+			password = process.env.PASS;
+		});
+		it("Incorrect request subdomain", async () => {
+			try {
+				domain = (Math.random() + 1).toString(36).substring(2);
+				const ticket = await getIndividualTicket(domain, user, password, 1);
+				assert.fail("Error not thrown for invalid request");
+			} catch (err) {
+				err.statusCode.should.equal(404);
+			}
+		});
+		it("Incorrect user email", async () => {
+			try {
+				user = (Math.random() + 1).toString(36).substring(2);
+				const ticket = await getIndividualTicket(domain, user, password, 1);
+				assert.fail("Error not thrown for invalid request");
+			} catch (err) {
+				err.statusCode.should.equal(401);
+			}
+		});
+		it("Incorrect user password", async () => {
+			try {
+				password = (Math.random() + 1).toString(36).substring(2);
+				const ticket = await getIndividualTicket(domain, user, password, 1);
+				assert.fail("Error not thrown for invalid request");
+			} catch (err) {
+				err.statusCode.should.equal(401);
+			}
+		});
+		it("Valid request for one ticket", async () => {
+			try {
+				const ticket = await getIndividualTicket(domain, user, password, 2);
+				ticket.should.be.an("object");
+				ticket.should.include.keys(
+					"requester_id",
+					"updated_at",
+					"description",
+					"subject",
+					"tags"
+				);
+			} catch (err) {
+				console.log(err);
+				assert.fail("Error thrown for valid request");
+			}
+		});
 	});
 });
 
