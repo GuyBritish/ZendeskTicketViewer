@@ -4,12 +4,12 @@ const should = chai.should();
 
 // Test the ticket request methods to Zendesk API.
 describe("Ticket Requests", () => {
-	// Test the getAllTickets() method if it functions correctly and throws appropriate errors.
-	describe("GET all tickets", () => {
+	// Test the getTickets() method if it functions correctly and throws appropriate errors.
+	describe("GET tickets", () => {
 		it("Incorrect request subdomain", () => {});
 		it("Incorrect user email", () => {});
 		it("Incorrect user password", () => {});
-		it("Valid request for all tickets", () => {});
+		it("Valid request for tickets", () => {});
 	});
 
 	// Test the getIndividualTicket() method if it functions correctly and throws appropriate errors.
@@ -35,13 +35,5 @@ describe("Tickets Helpers", () => {
 		it("Page number is the first/last of available pages", () => {});
 		it("Page range is larger than available pages", () => {});
 		it("Page range is smaller than available pages", () => {});
-	});
-
-	// Test the getTicketsForPage() method if it functions correctly and throws appropriate errors.
-	describe("Get the tickets for one page", () => {
-		it("Invalid page number", () => {});
-		it("The last page", () => {});
-		it("Not the last page", () => {});
-		it("No available tickets", () => {});
 	});
 });
