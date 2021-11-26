@@ -1,6 +1,10 @@
+const ExpressError = require("../utils/ExpressError");
+
+//=================================================================================================
+
 const getPageNumber = (page) => {
 	const reg = new RegExp("^[0-9]+$");
-	if (!reg.test(page)) throw new Error("Invalid page string!");
+	if (!reg.test(page)) throw new ExpressError(404, "Page Not Found");
 	return parseInt(page);
 };
 
