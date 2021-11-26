@@ -1,4 +1,5 @@
 const axios = require("axios");
+const ExpressError = require("../utils/ExpressError");
 
 //=================================================================================================
 
@@ -15,14 +16,23 @@ const getAllTickets = async (domain, user, password) => {
 			page: `${page}`,
 		},
 	};
-	let resp = await axios(options);
-	let ticketList = resp.data.tickets;
-	while (resp.data.next_page != null) {
-		options.params.page = ++page;
-		resp = await axios(options);
-		ticketList = ticketList.concat(resp.data.tickets);
+	try {
+		let resp = await axios(options);
+		let ticketList = resp.data.tickets;
+		while (resp.data.next_page != null) {
+			options.params.page = ++page;
+			resp = await axios(options);
+			ticketList = ticketList.concat(resp.data.tickets);
+		}
+		return ticketList;
+	} catch (err) {
+		let error = new ExpressError();
+		if (err.response) {
+			error.statusCode = err.response.status;
+			error.message = err.response.data.error.message || err.response.data.error;
+		}
+		throw error;
 	}
-	return ticketList;
 };
 
 const getIndividualTicket = async (domain, user, password, id) => {
@@ -35,8 +45,17 @@ const getIndividualTicket = async (domain, user, password, id) => {
 		},
 	};
 
-	const resp = await axios(options);
-	return resp.data.ticket;
+	try {
+		const resp = await axios(options);
+		return resp.data.ticket;
+	} catch (err) {
+		let error = new ExpressError();
+		if (err.response) {
+			error.statusCode = err.response.status;
+			error.message = err.response.data.error.message || err.response.data.error;
+		}
+		throw error;
+	}
 };
 
 //=================================================================================================
