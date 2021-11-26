@@ -6,7 +6,7 @@
 	"scripts": {
 		"once": "node index.js",
 		"start": "nodemon index.js",
-		"test": "mocha --recursive --exit"
+		"test": "mocha --recursive --exit -r dotenv/config"
 	},
 	"repository": {
 		"type": "git",
