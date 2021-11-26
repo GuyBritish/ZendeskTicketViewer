@@ -3,8 +3,7 @@ const ExpressError = require("../utils/ExpressError");
 
 //=================================================================================================
 
-const getAllTickets = async (domain, user, password) => {
-	let page = 1;
+const getAllTickets = async (domain, user, password, page) => {
 	let options = {
 		url: `https://${domain}.zendesk.com/api/v2/tickets.json`,
 		method: "GET",
@@ -13,18 +12,15 @@ const getAllTickets = async (domain, user, password) => {
 			password: `${password}`,
 		},
 		params: {
+			per_page: `25`,
 			page: `${page}`,
 		},
 	};
 	try {
 		let resp = await axios(options);
-		let ticketList = resp.data.tickets;
-		while (resp.data.next_page != null) {
-			options.params.page = ++page;
-			resp = await axios(options);
-			ticketList = ticketList.concat(resp.data.tickets);
-		}
-		return ticketList;
+		const tickets = resp.data.tickets;
+		const ticketCount = resp.data.count;
+		return { tickets, ticketCount };
 	} catch (err) {
 		let error = new ExpressError();
 		if (err.response) {
