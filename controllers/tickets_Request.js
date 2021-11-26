@@ -3,7 +3,7 @@ const ExpressError = require("../utils/ExpressError");
 
 //=================================================================================================
 
-const getAllTickets = async (domain, user, password, page) => {
+const getTickets = async (domain, user, password, page) => {
 	let options = {
 		url: `https://${domain}.zendesk.com/api/v2/tickets.json`,
 		method: "GET",
@@ -56,4 +56,4 @@ const getIndividualTicket = async (domain, user, password, id) => {
 
 //=================================================================================================
 
-module.exports = { getAllTickets, getIndividualTicket };
+module.exports = { getTickets, getIndividualTicket };

@@ -4,14 +4,14 @@ const password = process.env.PASS;
 
 //=================================================================================================
 
-const { getAllTickets, getIndividualTicket } = require("./tickets_Request");
+const { getTickets, getIndividualTicket } = require("./tickets_Request");
 const { getPageNumber, getPageRange } = require("./tickets_Helper");
 
 const indexPage = async (req, res) => {
 	const { page } = req.params;
 
 	const currPage = getPageNumber(page);
-	const { tickets, ticketCount } = await getAllTickets(domain, user, password, currPage);
+	const { tickets, ticketCount } = await getTickets(domain, user, password, currPage);
 	const { minPage, maxPage } = getPageRange(currPage, ticketCount, 25, 7);
 
 	res.render("tickets/index", { tickets, currPage, minPage, maxPage });
