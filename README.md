@@ -22,7 +22,7 @@ $ cd ZendeskTicketViewer
 $ npm install
 ```
 ### Configuration
-1. In project root directory, create a .env file
+1. In project root directory, create a **.env** file
 2. You'll need to specify the following
 ```
 NODE_ENV=production
@@ -44,3 +44,17 @@ $ npm test
 ```
 
 ## Project Design
+### Structure Overview
+| Name | Description |
+|----------------|---------------------------|
+|**controllers** | Define functions to serve the Express routes |  
+|**node_modules**| Contains all dependencies |
+|**public**      | Contains static files for Express application |
+|**routes**      | Contains all Express routes |
+|**test**        | Contains all test files for mocha testing framework |
+|**utils**       | Define helper functions and objects for internal application |
+|**views**       | Contains all files EJS template files for rendering interface |
+|index.js        | Entry point to Express app |
+|package.json    | Contains all project and dependencies information, as well as build scripts |
+
+### Design Choices
