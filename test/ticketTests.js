@@ -53,7 +53,7 @@ describe("Ticket Requests", () => {
 					tickets.length.should.equal(Math.min(25, ticketCount));
 				}
 			} catch (err) {
-				assert.fail("Error thrown for valid request");
+				assert.fail(`Error thrown for valid request: ${err}`);
 			}
 		});
 	});
@@ -107,7 +107,7 @@ describe("Ticket Requests", () => {
 				);
 			} catch (err) {
 				console.log(err);
-				assert.fail("Error thrown for valid request");
+				assert.fail(`Error thrown for valid request: ${err}`);
 			}
 		});
 	});
