@@ -138,7 +138,6 @@ describe("Tickets Helpers", () => {
 				const page = getPageNumber("252");
 				page.should.equal(252);
 			} catch (err) {
-				console.log(err);
 				assert.fail("Error thrown for valid page");
 			}
 		});
@@ -146,8 +145,20 @@ describe("Tickets Helpers", () => {
 
 	// Test the getPageRange() method if it functions correctly.
 	describe("Get page range", () => {
-		it("Page number is the first/last of available pages", () => {});
-		it("Page range is larger than available pages", () => {});
-		it("Page range is smaller than available pages", () => {});
+		it("Page number is the first/last of available pages", () => {
+			const { minPage, maxPage } = getPageRange(11, 106, 10, 3);
+			minPage.should.equal(8);
+			maxPage.should.equal(11);
+		});
+		it("Page range is larger than available pages", () => {
+			const { minPage, maxPage } = getPageRange(2, 10, 3, 3);
+			minPage.should.equal(1);
+			maxPage.should.equal(4);
+		});
+		it("Page range is smaller than available pages", () => {
+			const { minPage, maxPage } = getPageRange(5, 250, 25, 4);
+			minPage.should.equal(1);
+			maxPage.should.equal(9);
+		});
 	});
 });
