@@ -11,6 +11,7 @@ For development, you will need Node.js and npm installed in your environment.
 
 ## Running the project
 
+### Installation
 1. Clone the repository to your local machine.
 ```
 $ git clone https://github.com/GuyBritish/ZendeskTicketViewer.git
@@ -20,12 +21,23 @@ $ cd ZendeskTicketViewer
 ```
 $ npm install
 ```
-3. Run the application
+### Configuration
+1. In project root directory, create a .env file
+2. You'll need to specify the following
+```
+NODE_ENV=production
+PORT=3000
+DOMAIN=<Your Zendesk API subdomain>
+EMAIL=<Your Zendesk account email address>
+PASS=<Your Zendesk account password>
+```
+### Run the application
+1. Use the following command
 ```
 $ npm start
 ```
-
-## Running tests
+2. Navigate to localhost:3000 on browser
+### Testing
 Use the following command
 ```
 $ npm test
