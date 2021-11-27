@@ -23,7 +23,7 @@ $ npm install
 ```
 ### Configuration
 1. In project root directory, create a **.env** file
-2. You'll need to specify the following
+2. You'll need to specify the following information in the file
 ```
 NODE_ENV=production
 PORT=3000
