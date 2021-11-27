@@ -30,7 +30,6 @@ app.get("/", (req, res) => {
 app.use("/tickets", ticketsRoutes);
 
 app.all("*", (req, res, next) => {
-	//res.status(404).send("Error 404 Not Found");
 	next(new ExpressError(404, "Page Not Found"));
 });
 
