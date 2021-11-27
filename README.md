@@ -53,7 +53,7 @@ $ npm test
 |**routes**      | Contains all Express routes |
 |**test**        | Contains all test files for mocha testing framework |
 |**utils**       | Define helper functions and objects for internal application |
-|**views**       | Contains all files EJS template files for rendering interface |
+|**views**       | Contains all EJS template files for rendering interface |
 |index.js        | Entry point to Express app |
 |package.json    | Contains all project and dependencies information, as well as build scripts |
 
