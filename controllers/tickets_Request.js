@@ -3,6 +3,16 @@ const ExpressError = require("../utils/ExpressError");
 
 //=================================================================================================
 
+/**
+ * Request the tickets in a specified page. Throws a custom error with friendly message if an
+ * erroneous response is received.
+ *
+ * @param {string} domain The subdomain for the request url.
+ * @param {string} user The user email for request authentication.
+ * @param {string} password The password for request authentication.
+ * @param {int} page The page that will be requested.
+ * @returns A list of ticket objects.
+ */
 const getTickets = async (domain, user, password, page) => {
 	let options = {
 		url: `https://${domain}.zendesk.com/api/v2/tickets.json`,
@@ -23,6 +33,7 @@ const getTickets = async (domain, user, password, page) => {
 		return { tickets, ticketCount };
 	} catch (err) {
 		let error = new ExpressError();
+		// Get error code and message from API response.
 		if (err.response) {
 			error.statusCode = err.response.status;
 			error.message = err.response.data.error.message || err.response.data.error;
@@ -31,6 +42,16 @@ const getTickets = async (domain, user, password, page) => {
 	}
 };
 
+/**
+ * Request a single ticket with a specified ID. Throws a custom error with friendly message if an
+ * erroneous response is received.
+ *
+ * @param {string} domain The subdomain for the request url.
+ * @param {string} user The user email for request authentication.
+ * @param {string} password The password for request authentication.
+ * @param {int} id The ticket ID that will be requested.
+ * @returns A ticket object.
+ */
 const getIndividualTicket = async (domain, user, password, id) => {
 	const options = {
 		url: `https://${domain}.zendesk.com/api/v2/tickets/${id}.json`,
@@ -46,6 +67,7 @@ const getIndividualTicket = async (domain, user, password, id) => {
 		return resp.data.ticket;
 	} catch (err) {
 		let error = new ExpressError();
+		// Get error code and message from API response.
 		if (err.response) {
 			error.statusCode = err.response.status;
 			error.message = err.response.data.error.message || err.response.data.error;
