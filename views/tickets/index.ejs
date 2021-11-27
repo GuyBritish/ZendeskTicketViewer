@@ -7,9 +7,11 @@
         <% for (let ticket of tickets) { %>
             <div class="card mb-3">
                 <div class="card-body hstack gap-2">
-                    <div class="d-inline">    
-                        <h5 class="card-title"> <%=ticket.subject%> </h5>
-                        <p class="card-text text-muted"> <%=ticket.type%> </p>
+                    <div class="d-inline">  
+                        <h5 class="card-title" style="display: inline;"> <%=ticket.subject%> </h5>
+                        <% if (ticket.type != null) { %>
+                            <span class="badge bg-secondary"> <%=ticket.type%> </span>
+                        <% } %>
                         <p class="card-text text-muted"> <%=ticket.tags%> </p>
                     </div>
                     <div class="ms-auto">
