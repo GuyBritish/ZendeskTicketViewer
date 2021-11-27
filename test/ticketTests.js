@@ -5,6 +5,7 @@ const assert = chai.assert;
 chai.should();
 
 const { getTickets, getIndividualTicket } = require("../controllers/tickets_Request");
+const { getPageNumber, getPageRange } = require("../controllers/tickets_Helper");
 
 // Test the ticket request methods to Zendesk API.
 describe("Ticket Requests", () => {
@@ -116,9 +117,31 @@ describe("Ticket Requests", () => {
 describe("Tickets Helpers", () => {
 	// Test the getPageNumber() method if it functions correctly and throws appropriate errors.
 	describe("Get page number", () => {
-		it("Invalid page string (Not a number)", () => {});
-		it("Invalid page string (Empty)", () => {});
-		it("Valid page string", () => {});
+		it("Invalid page string (Not a number)", () => {
+			try {
+				const page = getPageNumber("notanumber");
+				assert.fail("Error not thrown for invalid page");
+			} catch (err) {
+				err.statusCode.should.equal(404);
+			}
+		});
+		it("Invalid page string (Empty)", () => {
+			try {
+				const page = getPageNumber("");
+				assert.fail("Error not thrown for invalid page");
+			} catch (err) {
+				err.statusCode.should.equal(404);
+			}
+		});
+		it("Valid page string", () => {
+			try {
+				const page = getPageNumber("252");
+				page.should.equal(252);
+			} catch (err) {
+				console.log(err);
+				assert.fail("Error thrown for valid page");
+			}
+		});
 	});
 
 	// Test the getPageRange() method if it functions correctly.
