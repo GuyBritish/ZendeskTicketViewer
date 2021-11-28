@@ -1,6 +1,8 @@
 # ZendeskTicketViewer 
 An web application created with HTML, CSS, Node.js, and Express. This application makes requests to the Zendesk API to retrieve tickets for an account. This is my submission for the Zendesk Coding Challenge 2021.
 
+[**Live Demo**](https://zendeskticket.herokuapp.com/) (This is temporary since zcc free trial account will expire)
+
 ---
 ## Requirements
 
