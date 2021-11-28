@@ -4,8 +4,8 @@
 	"description": "Zendesk coding challenge for Engineering Internship 2022",
 	"main": "index.js",
 	"scripts": {
-		"once": "node index.js",
-		"start": "nodemon index.js",
+		"dev": "nodemon index.js",
+		"start": "node index.js",
 		"test": "mocha --recursive --exit -r dotenv/config"
 	},
 	"repository": {
