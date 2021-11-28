@@ -10,3 +10,7 @@ p {
 	word-break: break-all;
 	white-space: pre-wrap;
 }
+
+p.description {
+	font-size: 1.5em;
+}
